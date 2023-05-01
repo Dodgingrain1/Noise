@@ -51,7 +51,7 @@ struct State{
   uint8_t noise_type;
 
 // for pink noise generation
-  float counter;
+  uint8_t counter;
 //  float row_minus_one;  recalculated every sample, no need to cache
   float row_0;
   float row_1;
@@ -62,7 +62,7 @@ struct State{
   float row_6;
 
 // for blue noise generation
-  float blueCounter;
+  uint8_t blueCounter;
   float prev_sample;
 //  float row_minus_one;  recalculated every sample, no need to cache
   float blueRow_0;
