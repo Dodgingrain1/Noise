@@ -54,7 +54,19 @@ struct AntiAliasingFilter{
         this->overSampleFreq = overSampleFreq; 
         this->overSampleQ = overSampleQ;
   
-        overSamplingFilter1.mCoeffs.setSOLP(tan(PI* overSamplingFilter1.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
+        // thanks to Nigel Redmon for the Q calculator that simulates a butterworth (https://www.earlevel.com/main/2016/09/29/cascading-filters/)
+        overSamplingFilter1.mCoeffs.setSOLP(tan(PI* overSamplingFilter1.mCoeffs.wc(overSampleFreq,1.f/96000.f)), .5015461f);
+        overSamplingFilter2.mCoeffs.setSOLP(tan(PI* overSamplingFilter2.mCoeffs.wc(overSampleFreq,1.f/96000.f)), .5142076f);
+        overSamplingFilter3.mCoeffs.setSOLP(tan(PI* overSamplingFilter3.mCoeffs.wc(overSampleFreq,1.f/96000.f)), .5411961f);
+        overSamplingFilter4.mCoeffs.setSOLP(tan(PI* overSamplingFilter4.mCoeffs.wc(overSampleFreq,1.f/96000.f)), .58641385f);
+        overSamplingFilter5.mCoeffs.setSOLP(tan(PI* overSamplingFilter5.mCoeffs.wc(overSampleFreq,1.f/96000.f)), .6575435f);
+        overSamplingFilter6.mCoeffs.setSOLP(tan(PI* overSamplingFilter6.mCoeffs.wc(overSampleFreq,1.f/96000.f)), .76988452f);
+        overSamplingFilter7.mCoeffs.setSOLP(tan(PI* overSamplingFilter7.mCoeffs.wc(overSampleFreq,1.f/96000.f)), .95694043f);
+        overSamplingFilter8.mCoeffs.setSOLP(tan(PI* overSamplingFilter8.mCoeffs.wc(overSampleFreq,1.f/96000.f)), 1.305630f);
+        overSamplingFilter9.mCoeffs.setSOLP(tan(PI* overSamplingFilter9.mCoeffs.wc(overSampleFreq,1.f/96000.f)), 2.1418288f);
+        overSamplingFilter10.mCoeffs.setSOLP(tan(PI* overSamplingFilter10.mCoeffs.wc(overSampleFreq,1.f/96000.f)), 6.3727474f);
+
+/*        overSamplingFilter1.mCoeffs.setSOLP(tan(PI* overSamplingFilter1.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
         overSamplingFilter2.mCoeffs.setSOLP(tan(PI* overSamplingFilter2.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
         overSamplingFilter3.mCoeffs.setSOLP(tan(PI* overSamplingFilter3.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
         overSamplingFilter4.mCoeffs.setSOLP(tan(PI* overSamplingFilter4.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
@@ -64,13 +76,7 @@ struct AntiAliasingFilter{
         overSamplingFilter8.mCoeffs.setSOLP(tan(PI* overSamplingFilter8.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
         overSamplingFilter9.mCoeffs.setSOLP(tan(PI* overSamplingFilter9.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
         overSamplingFilter10.mCoeffs.setSOLP(tan(PI* overSamplingFilter10.mCoeffs.wc(overSampleFreq,1.f/96000.f)), overSampleQ);
-    }
-
-    inline __attribute__((optimize("Ofast"),always_inline))
-    float olddecimate (const float xn){
-        return overSamplingFilter1.process_so(overSamplingFilter2.process_so(overSamplingFilter3.process_so(overSamplingFilter4.process_so(overSamplingFilter5.process_so(overSamplingFilter6.process_so(overSamplingFilter7.process_so(overSamplingFilter8.process_so(overSamplingFilter9.process_so(xn)))))))));
-    }
-
+  */  }
 
     inline __attribute__((optimize("Ofast"),always_inline))
     void upsample (float preUpSampleBuffer[], float postUpSampleBuffer[], const float frames){    
